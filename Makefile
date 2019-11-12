@@ -1,13 +1,14 @@
 VENV = . ./venv/bin/activate;
+PKG_DIR = src
+TEST_DIR = tests
 TEST = pytest \
 	--cov-config=setup.cfg \
 	--cov-report=xml:.coverage.xml \
 	--cov-report=term \
 	--cov=pypiserver \
 	--junit-xml=.pytest.xml \
-	tests
-PKG_DIR = src
-TEST_DIR = tests
+	$(PKG_DIR) \
+	$(TEST_DIR)
 SRC_FILES = *.py $(PKG_DIR) $(TEST_DIR)
 
 .PHONY: bench build clean distribute fmt lint test
