@@ -4,7 +4,6 @@
 import re
 import typing as t
 from enum import Enum
-from functools import partial
 
 from baseutils.iter import first
 from baseutils.option import exists
