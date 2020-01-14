@@ -2,11 +2,6 @@ VENV = . ./venv/bin/activate;
 PKG_DIR = src
 TEST_DIR = tests
 TEST = pytest \
-	--cov-config=setup.cfg \
-	--cov-report=xml:.coverage.xml \
-	--cov-report=term \
-	--cov=pypiserver \
-	--junit-xml=.pytest.xml \
 	$(PKG_DIR) \
 	$(TEST_DIR)
 SRC_FILES = *.py $(PKG_DIR) $(TEST_DIR)
@@ -72,20 +67,16 @@ test: venv
 tox: venv
 	TOXENV=$(TOXENV) tox
 
-test-3.6:
+test-docker-3.6:
 	docker run --rm -it --mount type=bind,source="$(PWD)",target="/src" -w "/src" \
 		python:3.6 bash -c "make clean && pip install -e .[dev] && $(TEST); make clean"
 
-test-3.7:
+test-docker-3.7:
 	docker run --rm -it --mount type=bind,source="$(PWD)",target="/src" -w "/src" \
 		python:3.7 bash -c "make clean && pip install -e .[dev] && $(TEST); make clean"
 
-test-3.8-rc:
+test-docker-3.8:
 	docker run --rm -it --mount type=bind,source="$(PWD)",target="/src" -w "/src" \
 		python:3.8 bash -c "make clean && pip install -e .[dev] && $(TEST); make clean"
 
-test-all-versions: test-3.6 test-3.7 test-3.8
-
-bench: venv
-	source venv/bin/activate; bench/runner.sh
-
+test-docker-all: test-docker-3.6 test-docker-3.7 test-docker-3.8

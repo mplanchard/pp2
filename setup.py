@@ -72,7 +72,9 @@ CLASSIFIERS = [
 PYTHON_REQUIRES = ">=3.6"
 PACKAGE_DEPENDENCIES: t.Tuple[str, ...] = (
     "aiohttp",
+    "aiostream",
     "baseutils>=0.1.2",
+    "Jinja2",
     "uvloop",
 )
 SETUP_DEPENDENCIES: t.Tuple[str, ...] = ()
